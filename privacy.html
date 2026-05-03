@@ -171,29 +171,45 @@
                 <b>Delete advertising ID</b></li>
         </ul>
         <p>
-            Users who purchase the optional Pro in-app upgrade no longer
-            see any ads. The unlock flag is read by every ad surface
-            (banner, App Open, interstitial) before showing.
+            Users who purchase the optional one-time <b>Remove Ads</b>
+            upgrade no longer see any ads. The unlock flag is read by
+            every ad surface (banner, App Open, interstitial) before
+            showing.
         </p>
 
-        <h2>Pro / in-app purchase</h2>
+        <h2>Remove Ads / in-app purchase</h2>
         <p>
-            The Pro upgrade unlocks custom poll intervals, proactive HFP
-            re-assert, per-app allowlists, and removes all ads. The
-            unlock state is stored locally on your device (private
-            SharedPreferences). Real purchases are processed via the
-            <b>Google Play Billing</b> SDK; your purchase token flows
-            between your device and Google Play under
+            The Remove Ads upgrade is a one-time $1.99 in-app purchase
+            that disables every ad surface in the App. The unlock state
+            is stored locally on your device (private SharedPreferences).
+            Purchases are processed via the <b>Google Play Billing</b>
+            SDK; your purchase token flows between your device and
+            Google Play under
             <a href="https://policies.google.com/privacy" target="_blank"
-               rel="noopener">Google's privacy policy</a>. The App itself
-            keeps no server-side record of who has purchased Pro and
+               rel="noopener">Google's privacy policy</a>. The App
+            itself keeps no server-side record of who has purchased and
             runs no backend of its own. On sideloaded or unsigned builds
             where Play Billing is unreachable, the App falls back to a
             local development unlock and still makes no network calls
             of its own.
         </p>
 
-        <h2>Per-app allowlist (Pro only)</h2>
+        <h2>Pro Mode (future feature, not active in v1.0)</h2>
+        <p>
+            A future "Pro Mode" upgrade — separate from Remove Ads —
+            will add a per-app allowlist (so voice-calling apps that
+            genuinely need the headset's microphone can be exempted),
+            a custom poll interval, and a proactive HFP re-assert
+            cycle. Pro Mode ships in v1.1. <b>None of these features
+            are active in v1.0</b>, and the App does not request the
+            <code>PACKAGE_USAGE_STATS</code> Special-Access permission
+            required to implement the per-app filter at runtime. The
+            in-code app-list reader described below will only be
+            reachable from a UI entry point added back in v1.1; in
+            v1.0 it never runs.
+        </p>
+
+        <h2>Per-app allowlist (Pro feature, dormant in v1.0)</h2>
         <p>
             The Pro feature set includes a per-app allowlist that lets
             you mark specific apps so the watcher leaves their HFP/SCO
