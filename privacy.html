@@ -260,6 +260,35 @@
             permission.
         </p>
 
+        <h2>Data deletion</h2>
+        <p>
+            Three deletion paths cover everything the App and its
+            bundled SDKs touch:
+        </p>
+        <ul>
+            <li><b>Local app data on your device</b> — uninstall
+                HFP Blocker. Private SharedPreferences (Pro flag,
+                allowlist, log ring-buffer) are removed automatically
+                by Android when the App is uninstalled.</li>
+            <li><b>AdMob advertising data</b> — Android Settings →
+                Privacy → Ads → <b>Delete advertising ID</b> (or
+                <b>Reset advertising ID</b>). This is a system-level
+                setting and applies to every AdMob-served app on
+                your device, not just HFP Blocker.</li>
+            <li><b>Play Billing purchase records</b> — Google Play
+                account → Account → Order history → tap the Pro
+                purchase → request a refund or removal. Purchase
+                records are managed by Google Play, not by
+                HFP Blocker.</li>
+        </ul>
+        <p>
+            The App itself runs no backend and stores no server-side
+            data about you. There is no email-based deletion request
+            because there is nothing on a server to delete. If
+            Google Play Console or a reviewer needs a
+            deletion-request URL, this page serves as that URL.
+        </p>
+
         <h2>Children</h2>
         <p>
             The App is not directed at children under 13. It does not
