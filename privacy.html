@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HFP Blocker — Privacy Policy</title>
+    <meta name="description" content="Privacy policy for the HFP Blocker Android app. Zero data collection by the app itself; only network activity is Google AdMob.">
+    <style>
+        :root {
+            --bg: #050a1c;
+            --bg-2: #0a1640;
+            --fg: #e8eef8;
+            --muted: #98a4c0;
+            --accent: #78c8ff;
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(1200px 600px at 80% -10%, var(--bg-2), var(--bg) 60%) fixed;
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            overflow-wrap: break-word;
+        }
+        a { color: var(--accent); }
+        main {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 56px 20px 80px;
+        }
+        h1 { letter-spacing: -.02em; margin-bottom: .2em; font-size: clamp(1.6rem, 6vw, 2.2rem); }
+        .meta {
+            color: var(--muted);
+            font-size: .95rem;
+            margin-top: 0;
+            margin-bottom: 2em;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 1em;
+        }
+        h2 {
+            color: var(--accent);
+            margin-top: 1.8em;
+            margin-bottom: .4em;
+            font-size: 1.2rem;
+        }
+        code {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: .9em;
+        }
+        nav.top {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: .95rem;
+        }
+        nav.top a { margin: 0 10px; }
+    </style>
+</head>
+<body>
+    <main>
+        <nav class="top" aria-label="Site navigation">
+            <a href="index.html">← Home</a>
+        </nav>
+        <h1>HFP Blocker — Privacy Policy</h1>
+        <p class="meta">Last updated: 2026-04-30</p>
+
+        <p>
+            HFP Blocker (the "App") is developed by Magnus Jähnke
+            (<a href="mailto:jaehnke.m@gmail.com">jaehnke.m@gmail.com</a>).
+        </p>
+
+        <h2>Summary</h2>
+        <p>
+            The App does not collect, transmit, or store any personal data
+            about you. It operates entirely on your device. The only
+            off-device network activity comes from two embedded Google SDKs:
+            <b>AdMob</b> (to fetch ads) and <b>Google Play Billing</b>
+            (only when you tap the optional Pro upgrade). Both are
+            described below.
+        </p>
+
+        <h2>What the App does on your device</h2>
+        <ul>
+            <li>Watches the system's Bluetooth audio state.</li>
+            <li>When another app tries to switch your Bluetooth headset
+                into Hands-Free Profile / telephony mode (which degrades
+                music quality), the App reverts the system back to
+                media / A2DP mode.</li>
+            <li>Disconnects the Hands-Free profile from connected
+                Bluetooth audio devices where possible.</li>
+        </ul>
+        <p>
+            All of this happens locally. No audio is recorded. No
+            microphone is opened by this App. No Bluetooth device
+            identifier (MAC address, display name, or paired-device
+            list) is read into application memory beyond the opaque
+            device handle needed to call the disconnect API, and none
+            of it is logged, stored, or transmitted.
+        </p>
+
+        <h2>Data the App reads on your device (not collected, not transmitted)</h2>
+        <p>
+            To do its job locally, the App continuously reads:
+        </p>
+        <ul>
+            <li><b>Audio routing state</b> —
+                <code>AudioManager.mode</code> and
+                <code>isBluetoothScoOn</code>. Polled every 50–2000 ms
+                while the watcher is running. Used to detect switches
+                into telephony mode. Not persisted beyond an in-memory
+                counter.</li>
+            <li><b>Currently HFP-connected Bluetooth device handles</b>
+                — obtained via <code>BluetoothHeadset.connectedDevices</code>.
+                Used solely to invoke the disconnect API on those handles.
+                Their MAC addresses and display names are never read,
+                logged, or transmitted by the App.</li>
+        </ul>
+        <p>
+            The App also keeps a small on-device ring-buffer log (last
+            ~80 events) in private SharedPreferences so you can see in
+            the main screen what the watcher has been doing. Each entry
+            is a timestamp plus a short status string (e.g.
+            <code>kick — mode=3 sco=true → reverted</code>). It contains
+            no Bluetooth identifiers, no device names, no app names,
+            and no personal data. It never leaves your device.
+            Uninstalling the App deletes it.
+        </p>
+
+        <h2>Data the App collects</h2>
+        <p>
+            <b>None.</b> The App has no analytics, no telemetry, no crash
+            reporting of its own. No account, login, sign-up, or
+            user-identifier is required to use the App.
+        </p>
+
+        <h2>Advertising</h2>
+        <p>
+            The App displays advertisements via Google AdMob in three
+            places:
+        </p>
+        <ul>
+            <li>A <b>banner / medium-rectangle</b> on the main screen.</li>
+            <li>An <b>App Open</b> ad shown at most once per cold-start
+                of the app process, suppressed if a fullscreen ad is
+                already on screen.</li>
+            <li>An <b>interstitial</b> that fires only when you toggle
+                the watcher on or off, and only after a generous free
+                window: the first 10 minutes after install never show an
+                interstitial, the first two toggles ever are always free,
+                and there is a minimum two-minute cooldown between any
+                two interstitials.</li>
+        </ul>
+        <p>
+            AdMob is subject to
+            <a href="https://policies.google.com/privacy" target="_blank"
+               rel="noopener">Google's privacy policy</a>.
+            AdMob may collect standard advertising identifiers (Android
+            Advertising ID or similar), approximate location from IP, and
+            device/app information to deliver relevant ads. You can
+            control this via:
+        </p>
+        <ul>
+            <li>Android Settings → Google → Ads →
+                <b>Opt out of Ads Personalization</b></li>
+            <li>Android Settings → Privacy →
+                <b>Reset Advertising ID</b> /
+                <b>Delete advertising ID</b></li>
+        </ul>
+        <p>
+            Users who purchase the optional Pro in-app upgrade no longer
+            see any ads. The unlock flag is read by every ad surface
+            (banner, App Open, interstitial) before showing.
+        </p>
+
+        <h2>Pro / in-app purchase</h2>
+        <p>
+            The Pro upgrade unlocks custom poll intervals, proactive HFP
+            re-assert, per-app allowlists, and removes all ads. The
+            unlock state is stored locally on your device (private
+            SharedPreferences). Real purchases are processed via the
+            <b>Google Play Billing</b> SDK; your purchase token flows
+            between your device and Google Play under
+            <a href="https://policies.google.com/privacy" target="_blank"
+               rel="noopener">Google's privacy policy</a>. The App itself
+            keeps no server-side record of who has purchased Pro and
+            runs no backend of its own. On sideloaded or unsigned builds
+            where Play Billing is unreachable, the App falls back to a
+            local development unlock and still makes no network calls
+            of its own.
+        </p>
+
+        <h2>Per-app allowlist (Pro only)</h2>
+        <p>
+            The Pro feature set includes a per-app allowlist that lets
+            you mark specific apps so the watcher leaves their HFP/SCO
+            requests alone (e.g. voice-calling apps that genuinely need
+            the headset's microphone). To populate that list, the App
+            opens an in-app picker that reads the
+            <b>list of installed apps which expose a launcher icon</b>
+            via Android's <code>LauncherApps.getActivityList(...)</code>.
+            Only the package name and the user-visible app label and
+            icon are read, only while the picker is open, and only the
+            package names you actually tick are saved — locally, in
+            private SharedPreferences. Nothing about your installed
+            apps is collected, logged, or transmitted off your device.
+            The App does not hold the privacy-restricted
+            <code>QUERY_ALL_PACKAGES</code> permission; the picker is
+            limited to launcher-visible apps via the
+            <code>&lt;queries&gt;</code> filter declared in the manifest.
+        </p>
+
+        <h2>Permissions requested</h2>
+        <p>Permissions explicitly declared by HFP Blocker:</p>
+        <ul>
+            <li><code>BLUETOOTH_CONNECT</code>, <code>BLUETOOTH</code>,
+                <code>BLUETOOTH_ADMIN</code> — to enumerate
+                currently-HFP-connected audio devices and request that
+                the system drop their Hands-Free profile connection.</li>
+            <li><code>MODIFY_AUDIO_SETTINGS</code> — to read the current
+                audio mode and switch it back to normal when another
+                app forces telephony mode.</li>
+            <li><code>FOREGROUND_SERVICE</code>,
+                <code>FOREGROUND_SERVICE_SPECIAL_USE</code>,
+                <code>POST_NOTIFICATIONS</code> — to display the persistent
+                notification while the watcher is running.</li>
+            <li><code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code>
+                — used by Google AdMob to fetch ads and by Google Play
+                Billing to broker the Pro purchase flow.</li>
+        </ul>
+        <p>
+            Permissions auto-merged by Google's bundled SDKs (visible to
+            Play Console because they appear in the final manifest):
+        </p>
+        <ul>
+            <li><code>com.google.android.gms.permission.AD_ID</code> —
+                declared by the AdMob SDK so it can read the system-wide
+                Android Advertising ID. You can reset or delete this ID
+                at any time via Android Settings → Privacy → Ads.</li>
+            <li><code>android.permission.ACCESS_ADSERVICES_AD_ID</code>,
+                <code>…ACCESS_ADSERVICES_ATTRIBUTION</code>,
+                <code>…ACCESS_ADSERVICES_TOPICS</code> — Privacy Sandbox
+                APIs declared by AdMob for ad attribution and topics on
+                supported Android versions. The App does not call these
+                APIs directly.</li>
+            <li><code>com.android.vending.BILLING</code> — declared by
+                the Google Play Billing SDK so it can launch the Play
+                Store purchase sheet for the Pro upgrade.</li>
+            <li><code>android.permission.WAKE_LOCK</code> — declared by
+                the Google AdMob SDK for ad-loading lifecycle. The App
+                itself acquires no wake locks.</li>
+        </ul>
+        <p>
+            The App does <b>not</b> request <code>RECORD_AUDIO</code>,
+            location, contacts, storage, phone, SMS,
+            <code>QUERY_ALL_PACKAGES</code>, or any other sensitive
+            permission.
+        </p>
+
+        <h2>Children</h2>
+        <p>
+            The App is not directed at children under 13. It does not
+            knowingly collect data from children.
+        </p>
+
+        <h2>Changes</h2>
+        <p>
+            If this policy changes, the updated version will be published
+            at the same URL and the <i>Last updated</i> date above will
+            be revised.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+            Questions → <a href="mailto:jaehnke.m@gmail.com">jaehnke.m@gmail.com</a>
+        </p>
+    </main>
+</body>
+</html>

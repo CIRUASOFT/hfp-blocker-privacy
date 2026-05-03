@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HFP Blocker — keep your Bluetooth music on A2DP</title>
+    <meta name="description" content="Stops Android apps from forcing your Bluetooth headphones into tinny phone-call mode (HFP/SCO) when they open the microphone.">
+    <style>
+        :root {
+            --bg: #050a1c;
+            --bg-2: #0a1640;
+            --fg: #e8eef8;
+            --muted: #98a4c0;
+            --accent: #78c8ff;
+            --red: #e64646;
+            --card: rgba(255, 255, 255, 0.04);
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+        * { box-sizing: border-box; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(1200px 600px at 80% -10%, var(--bg-2), var(--bg) 60%) fixed;
+            color: var(--fg);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.55;
+            overflow-wrap: break-word;
+        }
+        a { color: var(--accent); }
+        header {
+            padding: 56px 20px 32px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: clamp(2rem, 8vw, 2.6rem);
+            margin: 0 0 .4em;
+            letter-spacing: -.02em;
+        }
+        header p.tagline {
+            color: var(--accent);
+            font-size: 1.15rem;
+            margin: 0 0 .8em;
+        }
+        header p.sub {
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+        section.card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 24px 22px;
+            margin: 20px 0;
+        }
+        section.card h2 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            color: var(--accent);
+            letter-spacing: .01em;
+        }
+        ul { padding-left: 1.1em; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: .9rem;
+            padding: 24px 20px;
+            border-top: 1px solid var(--card-border);
+        }
+        nav.top {
+            text-align: center;
+            padding: 12px;
+            font-size: .95rem;
+        }
+        nav.top a { margin: 0 10px; }
+        code {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: .9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HFP Blocker</h1>
+        <p class="tagline">Keep your Bluetooth music on A2DP</p>
+        <p class="sub">
+            Stops Android apps from flipping your Bluetooth headphones
+            into tinny phone-call mode whenever they open the microphone.
+        </p>
+    </header>
+
+    <nav class="top" aria-label="Site navigation">
+        <a href="privacy.html">Privacy policy</a>
+        <span style="color: var(--muted)" aria-hidden="true">·</span>
+        <a href="mailto:jaehnke.m@gmail.com">Contact</a>
+    </nav>
+
+    <main>
+        <section class="card">
+            <h2>What it does</h2>
+            <p>
+                When another app opens the microphone, Android often flips
+                your Bluetooth headset from A2DP (stereo media) into
+                Hands-Free Profile (mono 8 kHz telephony). Music collapses
+                to a tinny phone-call timbre and takes 10–30 seconds to
+                recover — if it recovers at all.
+            </p>
+            <p>
+                HFP Blocker runs a small background watcher that reverts
+                every HFP/SCO switch back to A2DP the moment it happens,
+                and (where possible) disconnects the Hands-Free profile
+                from your paired headphones without affecting media.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>How it works</h2>
+            <ul>
+                <li><b>Reflection-disconnect</b> (preferred) — asks the
+                    system to drop the Hands-Free profile connection to
+                    your paired headsets, leaving A2DP untouched.</li>
+                <li><b>Mode-revert poll</b> (fallback) — watches
+                    <code>AudioManager.mode</code> and reverts any switch
+                    into <code>IN_COMMUNICATION</code> back to
+                    <code>NORMAL</code>.</li>
+                <li>A persistent notification shows which strategy is
+                    active and how many HFP attempts have been blocked.</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Features</h2>
+            <div class="grid">
+                <div><b>One-tap toggle.</b> Start/stop from the app or a
+                    Quick Settings tile.</div>
+                <div><b>Zero data collection.</b> No account, no telemetry,
+                    no microphone access.</div>
+                <div><b>Works offline.</b> Everything runs on-device; the
+                    network is only used by the AdMob banner.</div>
+                <div><b>Pro unlocks</b> custom poll intervals, proactive
+                    HFP re-assert, per-app allowlists, and no ads.</div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Known limits</h2>
+            <p>
+                Some manufacturers gate the low-level HFP-disconnect API
+                behind a signature permission that third-party apps can't
+                obtain. On those devices the app falls back to audio-mode
+                reversion, which is less reliable. The persistent
+                notification tells you which strategy took effect.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Magnus Jähnke · <a href="privacy.html">Privacy</a> ·
+        <a href="mailto:jaehnke.m@gmail.com">jaehnke.m@gmail.com</a>
+    </footer>
+</body>
+</html>
