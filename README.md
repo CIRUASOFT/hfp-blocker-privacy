@@ -17,8 +17,8 @@ without making the source code public.
 
 ## Live URLs
 
-- https://pavloskaza.github.io/hfp-blocker-privacy/
-- https://pavloskaza.github.io/hfp-blocker-privacy/privacy.html
+- https://ciruasoft.github.io/hfp-blocker-privacy/
+- https://ciruasoft.github.io/hfp-blocker-privacy/privacy.html
 
 ## Updating
 
